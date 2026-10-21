@@ -8,14 +8,6 @@ navToggle.addEventListener("click", function () {
   navLinks.classList.toggle("open");
 });
 
-// Simulated demo links
-document.querySelectorAll(".demo-link").forEach(function (link) {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    alert("Live demo coming soon!");
-  });
-});
-
 // ===== Academic Planner =====
 const taskForm = document.getElementById("taskForm");
 if (taskForm) {
@@ -110,8 +102,11 @@ if (taskForm) {
   renderTasks();
 }
 
-// ===== Contact form validation =====
+
+
+ // ===== Contact form validation =====
 const contactForm = document.getElementById("contactForm");
+
 if (contactForm) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const digitsPattern = /^[0-9]+$/;
@@ -123,25 +118,37 @@ if (contactForm) {
   }
 
   contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
     let valid = true;
+
     const fields = ["name", "email", "phone", "message"];
+
     fields.forEach(function (id) {
       const input = document.getElementById(id);
       const value = input.value.trim();
       let msg = "";
-      if (value === "") msg = "This field is required.";
-      else if (id === "email" && !emailPattern.test(value)) msg = "Enter a valid email address.";
-      else if (id === "phone" && !digitsPattern.test(value)) msg = "Phone number must contain digits only.";
+
+      if (value === "") {
+        msg = "This field is required.";
+      } else if (
+        id === "email" &&
+        !emailPattern.test(value)
+      ) {
+        msg = "Enter a valid email address.";
+      } else if (
+        id === "phone" &&
+        !digitsPattern.test(value)
+      ) {
+        msg = "Phone number must contain digits only.";
+      }
+
       setError(input, msg);
+
       if (msg) valid = false;
     });
-    const success = document.getElementById("formSuccess");
-    if (valid) {
-      success.textContent = "Thank you, " + document.getElementById("name").value.trim() + "! Your message has been sent.";
-      contactForm.reset();
-    } else {
-      success.textContent = "";
+
+    if (!valid) {
+      e.preventDefault();
+      document.getElementById("formSuccess").textContent = "";
     }
   });
 }
