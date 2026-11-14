@@ -11,7 +11,7 @@ navToggle.addEventListener("click", function () {
 // ===== Academic Planner =====
 const taskForm = document.getElementById("taskForm");
 if (taskForm) {
-  const STORAGE_KEY = "tunde_tasks";
+  const STORAGE_KEY = "joshua_tasks";
   let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   let currentFilter = "all";
   const taskInput = document.getElementById("taskInput");
